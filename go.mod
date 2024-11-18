@@ -1,4 +1,4 @@
-module shared
+module github.com/phucthinh291203/shared
 
 go 1.23.1
 

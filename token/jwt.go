@@ -2,7 +2,7 @@ package token
 
 import (
 	"time"
-	"shared/errors"
+	errors "github.com/phucthinh291203/shared/errors"
 
 	"github.com/dgrijalva/jwt-go"
 )
