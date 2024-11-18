@@ -5,7 +5,6 @@ import (
 	"regexp"
 	"strings"
 	"time"
-	"user-service/domain"
 )
 
 //chứa các hàm tiện ích được sử dụng trong suốt application
@@ -23,16 +22,16 @@ func ContainsImageFormat(input string) bool {
 	return regex.MatchString(strings.ToLower(input))
 }
 
-func Pagination(queries domain.UserSearch) (limited int ,offset int) {
-	if queries.Page <= 0 {
-		queries.Page = 1
+func Pagination(page int, limited int) (int, int) {
+	if page <= 0 {
+		page = 1
 	}
 
-	if queries.Limited <= 0 {
-		queries.Limited = 5
+	if limited <= 0 {
+		limited = 5
 	}
 
 	//Bỏ qua số lượng documents -> trang 1 thì ko bỏ qua, trang 2 bỏ qua số documents ở trang 1
-	offset = (queries.Page - 1) * queries.Limited
-	return queries.Limited, offset
+	offset := (page - 1) * limited
+	return limited, offset
 }
