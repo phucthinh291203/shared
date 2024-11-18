@@ -1,0 +1,83 @@
+syntax = "proto3";
+
+option  go_package           = "./;protobufpb";
+option  java_multiple_files  = true;
+option  java_package         = "com.protobuf";
+option  java_outer_classname = "UserProto";
+
+// import "base.proto";
+import "google/protobuf/timestamp.proto";
+
+// UserSrv: business logic of user-service
+service UserSrv {
+
+  // auth rpc
+  rpc Register(RegisterUserReq) returns (RegisterUserRes) {}
+  rpc Login(LoginReq) returns (LoginRes) {}
+  rpc Read(ReadUserReq) returns (ReadUserRes) {}
+  rpc List(ListUserReq) returns (ListUserRes) {}
+  rpc Update(UpdateUserReq) returns (UpdateUserRes) {}
+  rpc ChangePassword(ChangePasswordReq) returns (ChangePasswordRes) {}
+  rpc UploadAvatar(UploadAvatarReq) returns (UploadAvatarRes) {}
+}
+
+// UserInfo represents for an user information
+message UserInfo {
+  string                    id             = 1;
+  string                    full_name      = 2;
+  string                    email          = 3;
+  string                    password       = 4;
+  string                    avatar         = 5;
+  google.protobuf.Timestamp created_time   = 6;
+  string                    address = 7;
+}
+
+// AUTH REQUEST
+
+// RegisterUserReq represents for a register request
+message RegisterUserReq {
+  string full_name        = 1;
+  string email            = 2;
+  string password         = 3;
+  string confirm_password = 4;
+  string avatar           = 5;
+  string address   = 6;
+}
+
+message ReadUserReq { UserInfo filter = 1; }
+
+message ListUserReq {
+   string keyword = 3;
+   int64 page = 4;
+   int64 limited = 5;
+}
+
+message UpdateUserReq { UserInfo user = 1; }
+message UploadAvatarReq {
+  string path    = 1;
+}
+
+// LoginReq represents for a login request
+message LoginReq {
+  string email    = 1;
+  string password = 2;
+}
+
+
+message ChangePasswordReq {
+  string id                   = 1;
+  string new_password         = 2;
+  string new_password_confirm = 3;
+  string old_password         = 4;
+}
+
+// RESPONSE
+
+// UserRes : user info
+message RegisterUserRes { bool success = 1; }
+message ReadUserRes { UserInfo user = 1; }
+message ListUserRes { repeated UserInfo users = 1; }
+message UpdateUserRes { UserInfo user = 1; }
+message ChangePasswordRes { bool success = 1; }
+message UploadAvatarRes { bool success = 1; }
+message LoginRes {string token = 1;}

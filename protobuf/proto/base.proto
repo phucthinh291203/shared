@@ -1,0 +1,45 @@
+syntax = "proto3";
+
+package protobuf;
+option  go_package           = "./;protobufpb";
+option  java_multiple_files  = true;
+option  java_package         = "com.protobuf";
+option  java_outer_classname = "BaseProto";
+
+import "google/protobuf/timestamp.proto";
+message PaginationReq {
+  int32 page_number = 1;
+  int32 page_limit  = 2;
+}
+
+message PaginationRes {
+  int32 page_current = 1;
+  int32 page_limit   = 2;
+  int32 total_page   = 3;
+  int64 total_record = 4;
+}
+message ActionRes { bool success = 1; }
+message Category {
+  string id          = 1;
+  string name        = 2;
+  string description = 3;
+}
+
+message Media {
+  string                    id           = 1;
+  uint64                    token_id     = 2;
+  string                    name         = 3;
+  string                    collection   = 4;
+  string                    metadata_url = 5;
+  string                    media_url    = 6;
+  string                    mint         = 7;
+  string                    creator      = 8;
+  string                    owner        = 9;
+  repeated string           tags         = 10;
+  string                    category_id  = 11;
+  string                    signature    = 12;
+  google.protobuf.Timestamp created_at   = 13;
+  google.protobuf.Timestamp updated_at   = 14;
+  google.protobuf.Timestamp deleted_at   = 15;
+  string                    description  = 16;
+}

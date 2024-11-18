@@ -1,0 +1,39 @@
+syntax = "proto3";
+
+
+option  go_package           = "./;protobufpb";
+option  java_multiple_files  = true;
+option  java_package         = "com.protobuf";
+option  java_outer_classname = "PresignedURLProto";
+
+message GetPresignedPutObjectURLRequest {
+    string pictureName = 1;        // anhSinhVien1.png
+}
+
+message GetPresignedPutObjectURLResponse {
+    string path = 1;            // token_anhSinhVien1.png
+    string url = 2;             // https://localhost:9000/put ....
+}
+
+message GetPresignedGetObjectURLRequest {
+    string path = 1;        // token_anhSinhVien1.png
+}
+
+message GetPresignedGetObjectURLResponse {
+    string url = 1;        // https://localhost:9000/get
+}
+
+message CheckObjectExistResquest {
+    string path = 1;
+}
+
+message CheckObjectExistResponse {
+    bool exist = 1;
+}
+
+service StorageSrv {
+    rpc GetPresignedPutObjectURL(GetPresignedPutObjectURLRequest) returns (GetPresignedPutObjectURLResponse);
+    rpc GetPresignedGetObjectURL(GetPresignedGetObjectURLRequest) returns (GetPresignedGetObjectURLResponse);
+    rpc CheckObjectExist(CheckObjectExistResquest) returns (CheckObjectExistResponse);
+    
+}
