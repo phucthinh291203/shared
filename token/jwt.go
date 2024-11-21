@@ -2,11 +2,11 @@ package token
 
 import (
 	"time"
+
 	errors "github.com/phucthinh291203/shared/errors"
 
 	"github.com/dgrijalva/jwt-go"
 )
-
 
 type BaseClaims struct {
 	Username string `json:"username"`
@@ -21,7 +21,7 @@ func GenerateJWT(claims BaseClaims, secretKey string) (string, error) {
 	claims.ExpiresAt = expirationTime.Unix() // Thiết lập thời gian hết hạn
 
 	token := jwt.NewWithClaims(jwt.SigningMethodHS256, claims)
-	return token.SignedString(secretKey)
+	return token.SignedString([]byte(secretKey))
 
 }
 
